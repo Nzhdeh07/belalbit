@@ -11,6 +11,7 @@ module.exports = {
             },
             fontFamily: {
                 roboto: ['Roboto', 'sans-serif'],
+                inter: ['Inter', 'sans-serif'],
             },
             colors: {
                 sitebg: '#F2F4F1', // Пример основного цвета
@@ -22,6 +23,8 @@ module.exports = {
                 sidebarborder: 'rgba(229, 229, 229, 1)',
                 sidebarsearch: 'rgba(120, 120, 120, 1)',
                 buttonbg: 'rgba(113, 178, 64, 0.05)',
+                button: 'rgba(237, 238, 237, 1)',
+
                 customGray: {
                     light: '#F3F4F6',
                     DEFAULT: '#9CA3AF',
