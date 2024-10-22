@@ -1,11 +1,11 @@
-<div class="min-h-screen flex">
+<div class="grid grid-cols-[317px_1fr] tabletLandscape:grid-cols-1 min-h-full">
     <!-- Сайдбар -->
-    <div class="flex flex-col w-[16%] h-[80vh] bg-white py-5 gap-[30px] border border-solid border-sidebarborder">
+    <div class="flex flex-col tabletLandscape:hidden  bg-white py-5 gap-[30px] border border-solid border-sidebarborder">
         <?php get_sidebar();?>
     </div>
 
 <!--    Основной раздел-->
-    <div class="w-[84%] flex flex-col gap-2.5">
+    <div class="flex flex-col gap-2.5">
         <?php get_header();?>
 
         <div class="flex-grow">

@@ -4,10 +4,24 @@ module.exports = {
     theme: {
         extend: {
             screens: {
-                sm: "576px",
-                md: "720px",
-                lg: "920px",
-                xl: "1110px",
+                md: "950px",
+                lg: "1440px",
+                xl: "1730px",
+
+                mobilePortrait: {max: "575px"},
+                mobileLandscape: {max: "767px"},
+                tabletPortrait: {max: "991px"},
+                tabletLandscape: {max: "1199px"},
+                desktop: {max: "1399px"},
+                wideDesktop: {max: "1599px"},
+                ultraWideDesktop: {max: "1799px"},
+                fullHdDesktop: {max: "1920px"},
+
+                mMobile: {max: "576"},
+                maxSm: {max: "800px"},
+                maxMd: {max: "1100px"},
+                maxLg: {max: "1440px"},
+                maxXl: {max: "1730px"},
             },
             fontFamily: {
                 roboto: ['Roboto', 'sans-serif'],
@@ -24,10 +38,10 @@ module.exports = {
                 sidebarsearch: 'rgba(120, 120, 120, 1)',
                 buttonbg: 'rgba(113, 178, 64, 0.05)',
                 button: 'rgba(237, 238, 237, 1)',
-
                 customGray: {
+                    DEFAULT: 'hsla(0, 0%, 31%, 1)',
                     light: '#F3F4F6',
-                    DEFAULT: '#9CA3AF',
+                    // DEFAULT: '#9CA3AF',
                     dark: '#4B5563'
                 },
             },

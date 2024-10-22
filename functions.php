@@ -1,5 +1,7 @@
 <?php
 
+
+
 add_action('after_setup_theme', 'blankslate_setup');
 function blankslate_setup()
 {
@@ -240,17 +242,6 @@ require_once __DIR__ . '/wp-term-image.php';
 add_action('admin_init', [\Kama\WP_Term_Image::class, 'init']);
 
 
-if (function_exists('acf_add_options_page')) {
-    acf_add_options_page(array(
-        'page_title' => 'Настройки сайта',
-        'menu_title' => 'Настройк сайта',
-        'menu_slug' => 'site-settings',
-        'capability' => 'edit_posts',
-        'redirect' => false
-    ));
-}
-
-
 add_filter('wpseo_breadcrumb_separator', 'custom_breadcrumb_separator');
 function custom_breadcrumb_separator($separator)
 {
@@ -284,6 +275,27 @@ foreach ( $attachments as $attachment ) {
         wp_delete_attachment( $attachment->ID, true );
     }
 }
+
+
+if (function_exists('acf_add_options_page')) {
+    // Главная страница
+    acf_add_options_page(array(
+        'page_title'    => 'Настройки сайта',
+        'menu_title'    => 'Настройки сайта',
+        'menu_slug'     => 'general-settings',
+        'capability'    => 'manage_options',
+        'redirect'      => false
+    ));
+
+    // Дополнительная страница
+    acf_add_options_sub_page(array(
+        'page_title'    => 'Меню сайта',
+        'menu_title'    => 'menu',
+        'parent_slug'   => 'general-settings',
+        'capability'    => 'manage_options',
+    ));
+}
+
 
 
 
