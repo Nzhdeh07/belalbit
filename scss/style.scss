@@ -59,5 +59,28 @@ a:focus {
 }
 
 
+.search-container {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.search-box {
+  width: 0;
+  opacity: 0;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  overflow: hidden; /* Скрыть переполнение */
+}
+
+.search-box.active {
+  width: 100%; /* Растянуть на всю ширину */
+  opacity: 1;
+  padding: 0; /* Убрать отступы */
+}
+
+.logo-container.hidden {
+  display: none; /* Скрыть ссылку на логотип */
+}
+
+
 
 

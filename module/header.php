@@ -1,7 +1,7 @@
 <div class="pt-2.5 gap-2.5 bg-white">
     <div class="grid grid-cols-3 ultraWideDesktop:flex  gap-5 mx-5 mb-2.5">
         <div class="desktop:hidden flex flex-col gap-2.5">
-            <div class="flex justify-between items-center gap-2.5 bg-BED8CA px-2.5 py-[5px] rounded-[6px] font-medium text-[14px] leading-5 text-black">
+            <div class="flex justify-between items-center gap-2.5 bg-customGreen px-2.5 py-[5px] rounded-[6px] font-medium text-[14px] leading-5 text-black">
                 <p class="uppercase">Офис</p>
                 <div class="flex ultraWideDesktop:hidden gap-1 items-center ">
                     <p class="tabletLandscape:hidden font-medium text-[14px] leading-5 text-black/100">Схема проезда</p>
@@ -41,10 +41,10 @@
             </div>
         </div>
         <div class="mobileLandscape:hidden flex flex-col gap-2.5 text-customGray">
-            <div class="flex justify-between items-center bg-BED8CA px-2.5 py-[5px] rounded-[6px] ">
+            <div class="flex justify-between items-center bg-customGreen px-2.5 py-[5px] rounded-[6px] ">
                 <p class="uppercase font-medium text-[14px] leading-5 text-black/100">Склад</p>
-                <div class="flex gap-1 items-center ">
-                    <p class="tabletLandscape:hidden font-medium text-[14px] leading-5 text-black/100">Схема проезда</p>
+                <div class="flex tabletLandscape:hidden gap-1 items-center ">
+                    <p class=" font-medium text-[14px] leading-5 text-black/100">Схема проезда</p>
                     <svg width="18" height="18" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.166 11.7501C17.166 13.6251 16.791 14.9376 15.951 15.7851L11.166 11.0001L16.9635 5.20264C17.0985 5.79514 17.166 6.47013 17.166 7.25013V11.7501Z"
                               stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
@@ -82,7 +82,7 @@
 
         </div>
         <div class="flex flex-col flex-1 min-w-96  gap-2.5">
-            <div class="flex mobileLandscape:hidden justify-center items-center bg-BED8CA px-2.5 py-[5px] rounded-[6px]">
+            <div class="flex mobileLandscape:hidden justify-center items-center bg-customGreen px-2.5 py-[5px] rounded-[6px]">
                 <p class="uppercase font-medium text-[14px] leading-5 text-black/100">Связаться</p>
             </div>
 
@@ -116,6 +116,7 @@
             </div>
         </div>
     </div>
+
     <div class="flex overflow-visible justify-between py-[5px] px-5 bg-mLightGreen text-white border border-gray-200 border-solid">
         <div class="flex justify-around gap-2.5 items-center">
             <?php foreach (get_field('menu', 'options') as $menu) : ?>
