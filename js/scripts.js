@@ -94,13 +94,160 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoContainer = document.querySelector('.logo-container');
 
     searchIcon.addEventListener('click', function () {
-        // Скрыть ссылку на логотип
         logoContainer.classList.toggle('hidden');
-
-        // Показывать или скрывать поле поиска с анимацией
         searchBox.classList.toggle('hidden');
     });
 });
 
 
+// module/catalog Раскрывает категории, если их больше 5
+document.addEventListener('DOMContentLoaded', function () {
+    const showAllButtons = document.querySelectorAll('.show-all-button');
+    showAllButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const subcategoryItems = button.parentElement.querySelectorAll('.hidden');
+            subcategoryItems.forEach(item => item.classList.remove('hidden'));
+            button.remove();
+        });
+    });
+});
 
+
+var swiper = new Swiper(".bannerSwiper", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    navigation: {
+        prevEl: "#prev-banner",
+        nextEl: "#next-banner",
+    },
+});
+
+var swiper = new Swiper("#productSwiper", {
+
+    slidesPerView: 2,
+    spaceBetween: 10,
+    breakpoints: {
+        1399: {
+            slidesPerView: 3,
+        },
+        1599: {
+            slidesPerView: 4,
+        },
+        1799: {
+            slidesPerView: 5,
+        },
+        1919: {
+            slidesPerView: 6,
+        },
+    },
+    pagination: {
+        clickable: true,
+    },
+    navigation: {
+        nextEl: "#swiper-button-next",
+        prevEl: "#swiper-button-prev",
+    },
+    on: {
+        init: function () {
+            // Скрыть prev кнопку при инициализации
+            document.getElementById("swiper-button-prev").style.display = "none";
+        },
+        slideChange: function () {
+            // Показывать или скрывать кнопки в зависимости от позиции слайда
+            var isBeginning = this.isBeginning;
+            var isEnd = this.isEnd;
+
+            // Если слайд на первом элементе, скрываем prev кнопку
+            document.getElementById("swiper-button-prev").style.display = isBeginning ? "none" : "block";
+
+            // Если слайд на последнем элементе, скрываем next кнопку
+            document.getElementById("swiper-button-next").style.display = isEnd ? "none" : "block";
+        },
+    },
+});
+
+
+jQuery(document).ready(function($) {
+    function checkTextBlocks() {
+        $('.text-hide .text-block').each(function () {
+            var $this = $(this);
+            var maxHeight = 170;
+
+            $this.css('max-height', '');
+            $this.css('overflow', '');
+            $this.removeClass('expanded');
+
+            if ($this.outerHeight() > maxHeight) {
+                $this.css({
+                    'max-height': maxHeight + 'px',
+                    'overflow': 'hidden',
+                    'position': 'relative',
+                });
+
+                var readMoreBtn = $this.closest('.text-hide').next('.read-more-container').find('.read-more-button');
+
+                readMoreBtn.on('click', function () {
+                    if ($this.hasClass('expanded')) {
+                        $this.removeClass('expanded');
+                        $this.css('max-height', maxHeight + 'px');
+                        $(this).find('p').text('Читать далее');
+                    } else {
+                        $this.addClass('expanded');
+                        $this.css('max-height', 'none');
+                        $(this).find('p').text('Скрыть');
+                    }
+                });
+            } else {
+                $this.closest('.text-hide').next('.read-more-container').hide();
+            }
+        });
+    }
+
+    checkTextBlocks();
+
+    let lastWindowWidth = jQuery(window).width();
+    jQuery(window).on('resize', function() {
+        let currentWindowWidth = jQuery(window).width();
+        if (currentWindowWidth !== lastWindowWidth) {
+            checkTextBlocks();
+            lastWindowWidth = currentWindowWidth;
+        }
+    });
+});
+
+
+
+var swiper = new Swiper("#documentSwiper", {
+
+    slidesPerView: 2,
+    spaceBetween: 10,
+    pagination: {
+        clickable: true,
+    },
+    navigation: {
+        nextEl: "#swiper-button-next",
+        prevEl: "#swiper-button-prev",
+    },
+    on: {
+        init: function () {
+            // Скрыть prev кнопку при инициализации
+            document.getElementById("swiper-button-prev").style.display = "none";
+        },
+        slideChange: function () {
+            // Показывать или скрывать кнопки в зависимости от позиции слайда
+            var isBeginning = this.isBeginning;
+            var isEnd = this.isEnd;
+
+            // Если слайд на первом элементе, скрываем prev кнопку
+            document.getElementById("swiper-button-prev").style.display = isBeginning ? "none" : "block";
+
+            // Если слайд на последнем элементе, скрываем next кнопку
+            document.getElementById("swiper-button-next").style.display = isEnd ? "none" : "block";
+        },
+    },
+});

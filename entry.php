@@ -1,176 +1,138 @@
-<div class="flex-1 container px-2.5 mt-16">
-    <article
-            id="post-<?php the_ID(); ?>" <?php post_class('md:flex p-2.5 bg-white rounded-lg shadow-lg overflow-hidden mb-4'); ?>>
-        <div href="<?php the_permalink(); ?>" class="lg:w-[35%] w-full rounded-3xl overflow-hidden">
+<div class="grid gap-10 px-5 mobileLandscape:px-2.5">
+
+    <!--Выбранный товар-->
+    <div class="grid gap-2.5">
+
+        <!-- Хлебные крошки (Yoast SEO) -->
+        <?php if (function_exists('yoast_breadcrumb')): ?>
+            <div class="font-normal text-[14px] leading-5 text-breadcrumb">
+                <?php yoast_breadcrumb('<p id="breadcrumbs" class="breadcrumbs">', '</p>'); ?>
+            </div>
+        <?php endif; ?>
+
+        <h2 class="font-medium text-4xl leading-[54px] text-black"><?php the_title(); ?></h2>
+
+        <article
+                id="post-<?php the_ID(); ?>" <?php post_class('grid grid-cols-[572px_1fr] tabletLandscape:grid-cols-1 gap-[20px] rounded-lg'); ?>>
+
+            <!-- Основное изображение и миниатюры -->
             <?php if (has_post_thumbnail()) : ?>
+                <div class="grid grid-cols-[400px_1fr] grid-rows-[400px]  p-2.5 gap-2.5 bg-white rounded-md overflow-hidden  ">
 
-                <div class="relative">
-                    <img class="h-auto w-full object-cover"
-                         src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')); ?>"
-                         alt="<?php the_title(); ?>">
+                    <!-- Основное изображение -->
+                    <div class=" bg-white ">
+                        <a data-fancybox="gallery"
+                           href="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')); ?>">
+                            <img class="h-full w-full object-cover"
+                                 src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')); ?>"
+                                 alt="<?php the_title(); ?>">
+                        </a>
+                    </div>
 
-                    <div class="absolute top-1 left-1 flex flex-wrap space-x-2">
+                    <!-- Дополнительные миниатюры справа с прокруткой -->
+                    <div class="flex flex-col gap-2.5 p-2.5 overflow-y-auto">
+                        <!-- Ограничиваем высоту и добавляем прокрутку -->
                         <?php
-                        $tags = get_the_terms(get_the_ID(), 'post_tag'); // Получаем теги поста
-
-                        if ($tags && !is_wp_error($tags)) {
-                            foreach ($tags as $tag) {
-                                // Получаем ID изображения, связанного с тегом
-                                $image_id = get_term_meta($tag->term_id, '_thumbnail_id', true);
-                                $image_url = wp_get_attachment_image_url($image_id, 'full');
-
-                                if ($image_url) { ?>
-                                    <img src="<?php echo esc_url($image_url); ?>"
-                                         class="w-10 h-10 rounded-full border-2 border-white z-10">
-
-                                <?php }
-                            }
-                        }
+                        $gallery_images = get_field('post-images');
+                        if ($gallery_images):
+                            foreach ($gallery_images as $image): ?>
+                                <a data-fancybox="gallery" href="<?php echo esc_url($image['url'], 'full'); ?>">
+                                    <img class="w-full h-full object-cover rounded-md"
+                                         src="<?php echo esc_url($image['sizes']['thumbnail'], 'full'); ?>"
+                                         alt="<?php echo esc_attr($image['alt']); ?>">
+                                </a>
+                            <?php endforeach;
+                        endif;
                         ?>
                     </div>
+
                 </div>
             <?php endif; ?>
-        </div>
 
-        <div class="flex flex-col justify-between px-4 mt-4 lg:mt-0 lg:w-[65%]">
-            <h2 class="text-3xl font-bold"><?php the_title(); ?></h2>
-            <p class="text-gray-600 h-[calc(3*1.6rem)] overflow-hidden mt-2"><?php echo esc_html(get_the_content()); ?></p>
 
-            <div class="price mt-2">
-                <?php
-                $discount_price = get_field('discount-price');
-                $price = get_field('price');
-                $weight = get_field('weight');
-                $count = get_field('count');
-                ?>
-                <div class="flex space-x-3 items-end">
-                    <p class="text-gray-400 text-lg">
-                        <?php if ($discount_price): ?>
-                            <del><?php echo esc_html($discount_price); ?> руб.</del>
-                        <?php endif; ?>
-                    </p>
-                    <p class="text-rose-500 text-2xl"><?php echo esc_html($price); ?> руб.</p>
-                    <div class="flex">
-                        <?php if ($weight): ?>
-                            <span class="text-gray-500 flex items-center "><?php echo esc_html($weight); ?></span>
-                        <?php endif; ?>
-                        <?php if ($weight): ?>
-                            <span class="text-gray-500 flex items-center ">&nbsp;|&nbsp;<?php echo esc_html($count); ?></span>
-                        <?php endif; ?>
-                    </div>
+            <div class="flex flex-col gap-14">
+                <div class="grid max-w-[770px] ">
+                    <h3 class="font-medium text-[20px] leading-[30px] text-black">Описание</h3>
+                    <p class="font-normal text-[14px] leading-6 text-customGray-description"><?php echo wp_kses_post(get_the_content()); ?></p>
                 </div>
-            </div>
-            <div class="flex items-center flex-wrap mt-4">
-                <button class="bg-neutral-200 mr-4 hover:bg-red-100 p-2 rounded-xl" onclick="window.history.back();">
-                    &larr; Вернуться обратно
-                </button>
-                <button class="bg-neutral-200 hover:bg-red-100 p-2 rounded-xl" data-fancybox data-src="#order-form"
-                        data-modal="true">Заказать
-                </button>
-            </div>
-        </div>
-    </article>
-
-
-    <div class="pt-8">
-        <h2 class="py-5 text-2xl">Вам понравится:</h2>
-        <div class="flex flex-wrap my-2">
-            <!--Рекомендуем -->
-            <div class="w-full md:w-[75%] order-2 md:order-1 mx-auto flex-grow">
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4">
-                    <?php
-                    $categories = wp_get_post_categories(get_the_ID());
-
-                    // Параметры для WP_Query
-                    $args = array(
-                        'category__in' => $categories,
-                        'post__not_in' => array(get_the_ID()),
-                        'posts_per_page' => 3,
-                        'orderby' => 'rand',
-                        'ignore_sticky_posts' => 1
-                    );
-
-                    $query = new WP_Query($args);
-
-                    if ($query->have_posts()) :
-                        while ($query->have_posts()) : $query->the_post();
-                            $image_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
-                            $description = get_the_excerpt();
-                            $weight = get_field('weight');
-                            $price = get_field('price');
-                            $discount_price = get_field('discount-price');
-                            $count = get_field('count');
-                            $tags = get_the_terms(get_the_ID(), 'post_tag');
-
-                            $tag_image_urls = [];
-                            if ($tags && !is_wp_error($tags)) {
-                                foreach ($tags as $tag) {
-                                    $image_id = get_term_meta($tag->term_id, '_thumbnail_id', true);
-                                    $tag_image_urls[] = wp_get_attachment_image_url($image_id, 'full');
+                <div class="flex flex-col gap-2.5">
+                    <div class="flex gap-10 wideDesktop:flex-col wideDesktop:gap-2.5">
+                        <div class="flex  items-center gap-1">
+                            <?php $primary_category_id = get_post_meta(get_the_ID(), '_yoast_wpseo_primary_category', true); ?>
+                            <?php if ($primary_category_id) { ?>
+                                <h3 class="font-bold text-[16px] leading-5 text-customGray-breadcrumb">Категория:</h3>
+                                <?php $primary_category = get_category($primary_category_id); ?>
+                                <?php if ($primary_category) { ?>
+                                    <a class="font-normal text-[16px] leading-5 text-customGreen-normal"
+                                       href="<?php echo esc_url(get_category_link($primary_category->term_id)); ?>">
+                                        <?php echo wp_kses_post($primary_category->name); ?>
+                                    </a>
+                                    <?php
                                 }
                             }
                             ?>
-                            <div class="py-2">
-                                <div class="relative">
-                                    <a href="<?php the_permalink(); ?>">
-                                        <img class="h-auto w-full rounded-t-lg" src="<?php echo esc_url($image_url); ?>"
-                                             alt="<?php the_title_attribute(); ?>">
-                                    </a>
-                                    <div class="absolute top-1 left-1 flex flex-wrap space-x-2">
-                                        <?php foreach ($tag_image_urls as $tag_image_url): ?>
-                                            <?php if ($tag_image_url): ?>
-                                                <img src="<?php echo esc_url($tag_image_url); ?>"
-                                                     class="w-10 h-10 rounded-full border-2 border-white z-10">
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
+                        </div>
 
-                                <div class="product-info px-2.5">
-                                    <a href="<?php the_permalink(); ?>">
-                                        <p class="text-[18px] font-medium mt-3.5"><?php the_title(); ?></p>
-                                    </a>
-                                    <p class="text-[14px] pt-2.5 text-black h-[calc(3*1.6rem)] overflow-hidden">
-                                        <?php echo esc_html($description); ?>
-                                    </p>
+                        <div class="flex items-center gap-1">
+                            <?php $article = get_field('post-article'); ?>
+                            <?php if ($article) { ?>
+                                <img class=""
+                                     src="<?php echo get_stylesheet_directory_uri() . '/img/svg/barCode.svg'; ?>"
+                                     alt="barCode">
+                                <h3 class="font-normal  text-[16px] leading-5 text-customGray-breadcrumb">Aртикул <span
+                                            class="font-bold">:</span>
+                                </h3>
+                                <p class="font-bold text-[16px] leading-5 text-customGray-breadcrumb">
+                                    <?php echo $article ?>
+                                </p>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="flex gap-10   items-center wideDesktop:items-start py-2.5 px-[20px] rounded-md bg-white ">
+                        <?php $price = get_field('post-price'); ?>
+                        <?php $discount_price = get_field('post-discounted-price'); ?>
+                        <?php if ($price): ?>
 
-                                    <div class="price py-2.5">
-                                        <p class="salePrice text-[14px] text-gray-300">
-                                            <?php if ($discount_price): ?>
-                                                <del class="text-[18px]"><?php echo esc_html($discount_price); ?></del> руб.
-                                            <?php endif; ?>
-                                        </p>
-
-                                        <div class="flex justify-between content-end">
-                                        <span class="text-rose-500 text-[18px]"><span
-                                                    class="text-[24px]"><?php echo esc_html($price); ?></span> руб.</span>
-                                            <div class="flex">
-                                                <?php if ($weight): ?>
-                                                    <span class="text-gray-500 flex items-center"><?php echo esc_html($weight); ?></span>
-                                                <?php endif; ?>
-                                                <?php if ($count): ?>
-                                                    <span class="text-gray-500 flex items-center">&nbsp;|&nbsp;<?php echo esc_html($count); ?></span>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="order-button w-full bg-neutral-200 hover:bg-red-100 p-2 rounded-xl"
-                                        data-fancybox data-src="#order-form" data-modal="true">
-                                    Заказать
-                                </button>
-
+                            <button class="py-3 px-[18px] rounded-md bg-customGreen-normal">
+                                <p class="font-medium text-[16px] leading-6 text-white">Заказать</p>
+                            </button>
+                            <div class="flex gap-2.5 items-center wideDesktop:flex-col wideDesktop:gap-2.5 wideDesktop:items-start">
+                                <p class="font-medium text-2xl leading-9 text-black"><?php echo esc_html($price); ?></p>
+                                <del class="font-medium text-2xl leading-9 text-customGray-bright"><?php echo esc_html($discount_price); ?></del>
                             </div>
-                        <?php
-                        endwhile;
-                        wp_reset_postdata();
-                    endif;
-                    ?>
+
+                        <?php else: ?>
+                            <button class="py-3 px-[18px] rounded-md bg-customGray">
+                                <p class="font-medium text-[16px] leading-6 text-white">Узнать цену</p>
+                            </button>
+                            <p class="font-medium text-[24px] leading-9 text-black">По запросу</p>
+                        <?php endif; ?>
+
+                    </div>
                 </div>
             </div>
-        </div>
+
+        </article>
     </div>
+
+    <!--Технические характеристики товара-->
+    <div class="flex flex-col">
+        <h4 class="font-medium text-xl leading-[30px] text-black">Технические характеристики</h4>
+    </div>
+
+    <div class="grid gap-2.5 ">
+        <h1 class="font-medium text-[32px] leading-[48px]" itemprop="name">
+            Похожие товары
+        </h1>
+        <?php get_template_part('module/widgetes/products-slider', null, array()); ?>
+    </div>
+
 </div>
 
 
 <?php get_template_part('module/widgetes/order-form', null, array()); ?>
+
+
+

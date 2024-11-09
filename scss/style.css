@@ -1,9 +1,24 @@
 @charset "UTF-8";
 body {
+  height: 100vh;
   background-color: #F2F4F1;
+}
+
+* {
   font-family: "Inter", sans-serif;
   font-weight: 400;
   color: #4a4c4d;
+}
+
+#footer .grid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: 2px; /* Ширина разделителя */
+  background-color: var(--customGreen-normal); /* Цвет разделителя */
 }
 
 #modal-menu.active {
@@ -41,16 +56,6 @@ body.modal-open {
   object-fit: cover;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-  color: black;
-}
-
-.swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
-}
-
 a:focus {
   outline: none;
   box-shadow: none;
@@ -76,6 +81,92 @@ a:focus {
 
 .logo-container.hidden {
   display: none; /* Скрыть ссылку на логотип */
+}
+
+#bannerSwiper {
+  height: 500px;
+}
+#bannerSwiper #calendar {
+  width: auto;
+  height: auto;
+}
+#bannerSwiper #swiper-navigation-container {
+  position: absolute;
+  bottom: 10px;
+  padding: 0 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  z-index: 50;
+}
+#bannerSwiper #swiper-navigation-container #banner-pagination {
+  position: unset;
+  text-align: unset;
+}
+#bannerSwiper #swiper-navigation-container #banner-pagination .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+}
+#bannerSwiper #swiper-navigation-container #banner-pagination .swiper-pagination-bullet {
+  background-color: hsl(113, 47%, 93%);
+  opacity: 1;
+}
+#bannerSwiper #swiper-navigation-container #banner-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: hsl(111, 48%, 55%);
+}
+@media (max-width: 767px) {
+  #bannerSwiper #swiper-navigation-container {
+    padding: 0 10px;
+  }
+}
+
+#productSwiper {
+  height: auto;
+}
+#productSwiper #swiper-button-next {
+  position: absolute;
+  top: 50%; /* Сдвигает кнопку на половину высоты родителя */
+  right: 0; /* Прижимает кнопку к правому краю */
+  transform: translateY(-50%); /* Центрирует кнопку по вертикали */
+  z-index: 50;
+}
+#productSwiper #swiper-button-prev {
+  position: absolute;
+  top: 50%; /* Сдвигает кнопку на половину высоты родителя */
+  left: 0; /* Прижимает кнопку к правому краю */
+  transform: translateY(-50%); /* Центрирует кнопку по вертикали */
+  z-index: 50;
+}
+#productSwiper #productSwiper-wrapper #product-swiper-slide {
+  width: auto;
+  max-width: 100%;
+  text-align: left;
+  justify-content: space-between;
+  align-items: normal;
+}
+#productSwiper #productSwiper-wrapper #product-swiper-slide img {
+  height: 168px;
+  object-fit: contain;
+}
+#productSwiper #productSwiper-wrapper #product-swiper-slide #add-button {
+  width: 32px;
+  height: 32px;
+}
+
+#breadcrumbs a:last-child {
+  color: hsl(111, 48%, 55%); /* Цвет для последнего элемента */
+}
+
+.underscore a:last-child {
+  text-decoration: underline;
+}
+
+.breadcrumbs-text span {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: black;
 }
 
 /*# sourceMappingURL=style.css.map */

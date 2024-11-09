@@ -85,7 +85,6 @@
             <div class="flex mobileLandscape:hidden justify-center items-center bg-customGreen px-2.5 py-[5px] rounded-[6px]">
                 <p class="uppercase font-medium text-[14px] leading-5 text-black/100">Связаться</p>
             </div>
-
             <div class="flex mobileLandscape:justify-center gap-5 h-full">
                 <div class="flex flex-col gap-[5px] font-semibold text-[16px] leading-5 text-customGray">
                     <div class="flex gap-[5px] items-center">
@@ -119,9 +118,9 @@
 
     <div class="flex overflow-visible justify-between py-[5px] px-5 bg-mLightGreen text-white border border-gray-200 border-solid">
         <div class="flex justify-around gap-2.5 items-center">
-            <?php foreach (get_field('menu', 'options') as $menu) : ?>
+            <?php foreach (get_field('site-menu', 'options') as $menu) : ?>
                 <a href="<?php echo $menu['menu-link']['url']; ?>"
-                   class="font-medium text-[16px] leading-[24px] px-3 py-1.5">
+                   class="font-medium text-[16px] leading-[24px] px-3 py-1.5 text-white">
                     <?php echo $menu['menu-link']['title']; ?>
                 </a>
             <?php endforeach; ?>

@@ -9,7 +9,11 @@
 
 
     <div class="flex flex-col gap-2.5">
-        <p class="font-roboto text-[14px] font-normal leading-4 text-black/80">Каталог</p>
+        <a href="/catalog" class="font-roboto text-[14px] font-normal leading-4 text-black/80">
+            Каталог
+        </a>
+
+
         <?php get_template_part('module/widgetes/catalog', null, array()); ?>
     </div>
 </div>

@@ -1,4 +1,5 @@
 <div class="flex flex-col gap-2.5">
+
     <?php
     $categories = get_categories(array(
         'hide_empty' => false,
@@ -6,42 +7,47 @@
         'parent' => 0,
     ));
 
+    $current_category = get_queried_object_id(); // Текущая категория
+    error_log('Current Category ID: ' . $current_category);
+
     foreach ($categories as $category) {
         $category_id = $category->term_id;
         $category_link = get_category_link($category_id);
         $image_id = get_term_meta($category->term_id, '_thumbnail_id', true);
         $category_image = wp_get_attachment_image_url($image_id, 'full');
+
         $child_categories = get_categories(array(
             'hide_empty' => false,
-            'parent' => $category_id, // Здесь указываем ID родительской категории
+            'parent' => $category_id,
         ));
+
+        $child_category_ids = wp_list_pluck($child_categories, 'term_id');
+        error_log('Child Category IDs for ' . $category->name . ': ' . implode(', ', $child_category_ids));
+
+
+        $is_open = in_array($current_category, wp_list_pluck($child_categories, 'term_id'));
+
+
         ?>
         <div class="category flex flex-col gap-2.5">
             <div class="flex gap-3 items-center justify-between text-center">
                 <div class="flex gap-3 items-center text-center">
                     <?php if ($category_image): ?>
-                        <!-- Отображаем изображение категории -->
                         <img src="<?php echo esc_url($category_image); ?>"
                              alt="<?php echo esc_attr($category->name); ?>"
                              class="w-8 h-8"/>
                     <?php endif; ?>
-
-                    <!-- Название категории -->
                     <a href="<?php echo esc_url($category_link); ?>"
                        class="font-normal text-base leading-5 text-blackWithOpacity">
                         <?php echo esc_html($category->name); ?>
                     </a>
                 </div>
                 <div class="flex gap-3 text-center items-center">
-                    <!-- количество товаров -->
                     <?php if ($category->count > 0): ?>
                         <span class="flex items-center justify-center bg-buttonbg text-mGreen text-xs w-7 h-7 rounded-full">
                             <?php echo $category->count; ?>
                         </span>
                     <?php endif; ?>
-
-
-                    <!-- Кнопка для раскрытия подкатегорий, если есть -->
                     <?php if (!empty($child_categories)): ?>
                         <button class="toggle-subcategories">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -57,47 +63,37 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <!-- Подкатегории, скрытые по умолчанию -->
+
+            <!-- Подкатегории: показываем, если текущая страница совпадает с одной из них -->
             <?php if (!empty($child_categories)): ?>
-                <div class="subcategories hidden flex flex-col gap-2.5">
-                    <?php
-                    foreach ($child_categories as $child_id) {
-                        $child_category = get_category($child_id);
-                        $child_link = get_category_link($child_id);
+                <div class="subcategories <?php echo $is_open ? 'shown' : 'hidden'; ?> flex flex-col gap-2.5">
+                    <?php foreach ($child_categories as $child_category): ?>
+                        <?php
+                        $child_link = get_category_link($child_category->term_id);
                         $subchild_categories = get_categories(array(
                             'hide_empty' => false,
-                            'parent' => $child_category->term_id, // Здесь указываем ID родительской категории
-                        ));//                            $subchild_categories = get_term_children($child_category->term_id, 'category');
-                        ;// Получаем подкатегории второго уровня
+                            'parent' => $child_category->term_id,
+                        ));
                         ?>
                         <div class="flex flex-col gap-[5px]">
-                            <!-- Второй уровень подкатегорий -->
                             <a href="<?php echo esc_url($child_link); ?>"
                                class="font-inter font-normal text-[16px] leading-6  py-2.5 pl-1.5 rounded-[6px] bg-button">
                                 <?php echo esc_html($child_category->name); ?>
                             </a>
 
                             <div class="flex flex-col gap-1.5">
-                                <!-- Третий уровень подкатегорий, если они существуют -->
-                                <?php foreach ($subchild_categories as $subchild_id) {
-                                    $subchild_category = get_category($subchild_id);
-                                    $subchild_link = get_category_link($subchild_id); ?>
-                                    <a href="<?php echo esc_url($subchild_link); ?>"
+                                <?php foreach ($subchild_categories as $subchild_category): ?>
+                                    <a href="<?php echo esc_url(get_category_link($subchild_category->term_id)); ?>"
                                        class="font-normal text-[14px] leading-[21px] py-1.5 pl-1.5 rounded-[6px]">
                                         <?php echo esc_html($subchild_category->name); ?>
                                     </a>
-                                <?php } ?>
+                                <?php endforeach; ?>
                             </div>
                         </div>
-                    <?php } ?>
+                    <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-
         </div>
     <?php } ?>
 </div>
-
-
-
-
 

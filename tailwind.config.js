@@ -33,17 +33,25 @@ module.exports = {
                 customGreen: {
                     DEFAULT: 'hsla(148, 25%, 80%, 1)',
                     normal: 'hsla(111, 48%, 55%, 1)',
+                    dark: 'hsla(142, 72%, 29%, 1)',
                 },
                 customGray: {
                     DEFAULT: 'hsla(0, 0%, 31%, 1)',
                     border: 'hsla(0, 0%, 35%, 1)',
+                    breadcrumb: 'hsla(0, 0%, 11%, 1)',
+                    description: 'hsla(0, 0%, 20%, 1)',
+                    bright: 'hsla(0, 0%, 47%, 1)',
                     light: '#F3F4F6',
                     dark: '#4B5563'
                 },
                 customBlue: {
                     DEFAULT: 'hsla(213, 27%, 84%, 1)',
-                    border: 'hsla(213, 27%, 84%, 1)',
+                    light: 'hsla(215, 20%, 65%, 1)',
                 },
+                customWhite: {
+                    DEFAULT: 'hsla(100, 12%, 95%, 1)',
+                },
+
 
                 mGreen15: 'rgba(104, 196, 87, 0.15)',
                 mGreen: 'rgba(104, 196, 87, 1)',

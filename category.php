@@ -1,145 +1,141 @@
 <?php get_header(); ?>
+<div class="grid grid-cols-[317px_1fr] tabletLandscape:grid-cols-1 min-h-full">
 
-<?php if (have_posts()) : ?>
-<header class="container px-2.5 py-4">
-    <div class="flex items-center">
-        <!-- Заголовок -->
-        <h1 class="entry-title text-2xl font-bold" itemprop="name">
-            <?php single_term_title(); ?>
-        </h1>
-
-        <!-- Хлебные крошки (Yoast SEO) -->
-        <?php if (function_exists('yoast_breadcrumb')): ?>
-            <div class="border-solid border border-gray-700 mx-2.5 p-2  rounded-3xl text-sm text-gray-600">
-                <?php yoast_breadcrumb('<p id="breadcrumbs" class="breadcrumbs">', '</p>'); ?>
-            </div>
-        <?php endif; ?>
+    <!-- Сайдбар -->
+    <div class="flex flex-col tabletLandscape:hidden  bg-white py-5 gap-[30px] border border-solid border-sidebarborder">
+        <?php get_sidebar(); ?>
     </div>
 
-    <!-- Meta описание -->
-    <div class="archive-meta text-gray-500 mt-2" itemprop="description">
-        <?php if ('' != get_the_archive_description()) {
-            echo esc_html(get_the_archive_description());
-        } ?>
-    </div>
-</header>
+    <!--    Основной раздел-->
+    <div class="flex flex-col gap-2.5">
 
-<!--Рекомендуем -->
-<div class="container px-2.5 flex-1">
-    <div class="flex flex-wrap my-2 ">
-        <div class="w-full mx-auto flex-grow">
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4">
+        <!-- Шапка для десктопа -->
+        <header id="header" class="block mobileLandscape:hidden">
+            <?php get_template_part('module/header', null, array()); ?>
+        </header>
+        <!-- Шапка  для мобильных устройств-->
+        <header id="header-mobile" class="hidden mobileLandscape:flex">
+            <?php get_template_part('module/header-mobile', null, array()); ?>
+        </header>
 
-                <?php
-                if (have_posts()) : while (have_posts()) : the_post();
-                    // Получаем данные из ACF полей
-                    $image_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
-                    $description = get_the_content();
-                    $weight = get_field('weight');
-                    $price = get_field('price');
-                    $discount_price = get_field('discount-price');
-                    $count = get_field('count');
-                    $tags = get_the_terms(get_the_ID(), 'post_tag');
+        <!-- Основной контент -->
+        <div class="flex-grow pt-10">
+            <div class="flex flex-col px-5 mobileLandscape:p-2.5  gap-10">
+                <!-- Хлебные крошки (Yoast SEO) -->
+                <?php if (function_exists('yoast_breadcrumb')): ?>
+                    <div class="font-normal text-[14px] leading-5 text-breadcrumb">
+                        <?php yoast_breadcrumb('<p id="breadcrumbs" class="breadcrumbs">', '</p>'); ?>
+                    </div>
+                <?php endif; ?>
 
+                <!--Товары по категории-->
+                <div class="flex flex-col gap-2.5">
+                    <!-- Заголовок категории-->
+                    <h1 class="font-medium text-[32px] leading-[48px]" itemprop="name">
+                        <?php single_term_title(); ?>
+                    </h1>
 
-                    $tag_image_urls = []; // Массив для хранения URL изображений меток
-                    if ($tags && !is_wp_error($tags)) {
-                        foreach ($tags as $tag) {
-                            $image_id = get_term_meta($tag->term_id, '_thumbnail_id', true);
-                            $tag_image_urls[] = wp_get_attachment_image_url($image_id, 'full'); // Добавляем URL изображений в массив
-                        }
-                    }
+                    <!--Товары по данной категории-->
+                    <div class="grid grid-cols-6 ultraWideDesktop:grid-cols-5 wideDesktop:grid-cols-4 desktop:grid-cols-3 mobileLandscape:grid-cols-2 gap-2.5 ">
 
-
-                    ?>
-
-                    <div class="py-2">
-                        <div class="relative">
-                            <a href="<?php echo esc_url(get_permalink(get_the_ID())); ?>">
-                                <img class="h-auto w-full rounded-t-lg" src="<?php echo esc_url($image_url); ?>"
-                                     alt="<?php the_title(); ?>" loading="lazy">
-                            </a>
-                            <!-- Вывод изображения метки, если оно существует -->
-                            <div class="absolute top-1 left-1 flex flex-wrap space-x-2">
-                                <?php foreach ($tag_image_urls as $tag_image_url): ?>
-                                    <?php if ($tag_image_url): ?>
-                                        <img src="<?php echo esc_url($tag_image_url); ?>"
-                                             class="w-10 h-10 rounded-full border-2 border-white z-10">
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                        <div class="product-info px-2.5">
-                            <a href="<?php echo esc_url(get_permalink(get_the_ID())); ?>">
-                                <p class="text-[18px] font-medium mt-3.5"><?php the_title(); ?></p>
-                            </a>
-                            <p class="text-[14px] pt-2.5 text-black h-[calc(3*1.6rem)] overflow-hidden">
-                                <?php echo esc_html($description); ?>
-                            </p>
+                        <?php
+                        if (have_posts()) : while (have_posts()) : the_post();
+                            // Получаем данные из ACF полей
+                            $image_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                            $description = get_the_content();
+                            $weight = get_field('weight');
+                            $price = get_field('price');
+                            $discount_price = get_field('discount-price');
+                            $count = get_field('count');
+                            $tags = get_the_terms(get_the_ID(), 'post_tag');
 
 
-                            <div class="price py-2.5">
-                                <p class="salePrice text-[14px] text-gray-300">
-                                    <?php if ($discount_price): ?>
-                                        <del class="text-[18px]"><?php echo esc_html($discount_price); ?></del>
-                                        руб.
-                                    <?php else: ?>
-                                        <del class="text-[18px]">&nbsp;</del>
-                                    <?php endif; ?>
-                                </p>
+                            $tag_image_urls = []; // Массив для хранения URL изображений меток
+                            if ($tags && !is_wp_error($tags)) {
+                                foreach ($tags as $tag) {
+                                    $image_id = get_term_meta($tag->term_id, '_thumbnail_id', true);
+                                    $tag_image_urls[] = wp_get_attachment_image_url($image_id, 'full'); // Добавляем URL изображений в массив
+                                }
+                            }
 
 
-                                <div class="flex justify-between content-end">
-                                        <span class="text-rose-500 text-[18px]"><span
-                                                    class="text-[24px]"><?php echo esc_html($price); ?></span> руб.</span>
-                                    <div class="flex">
-                                        <?php if ($weight): ?>
-                                            <span class="text-gray-500 flex items-center "><?php echo esc_html($weight); ?> </span>
-                                        <?php endif; ?>
-                                        <?php if ($weight): ?>
-                                            <span class="text-gray-500 flex items-center ">&nbsp;|&nbsp;<?php echo esc_html($count); ?></span>
+                            ?>
+
+                            <div class="flex flex-col justify-between gap-2.5 p-1.5 rounded-md bg-white">
+
+                                <a href="<?php echo esc_url(get_permalink(get_the_ID())); ?>">
+                                    <img class="h-[168px] w-full object-cover" src="<?php echo esc_url($image_url); ?>"
+                                         alt="<?php the_title(); ?>" loading="lazy">
+                                </a>
+
+                                <div class="flex flex-col gap-[5px]">
+                                    <a href="<?php echo esc_url(get_permalink(get_the_ID())); ?>">
+                                        <p class="font-medium text-[14px] leading-5 text-black"><?php the_title(); ?></p>
+                                    </a>
+
+
+                                    <div class="flex flex-col gap-[5px]">
+                                        <?php $price = get_field('post-price'); ?>
+                                        <?php $discount_price = get_field('post-discounted-price'); ?>
+                                        <?php if ($price): ?>
+                                            <div class="">
+                                                <p class="font-medium text-[10px] leading-[15px] text-customBlue-light">
+                                                    Цены без НДС
+                                                </p>
+                                                <div class="flex mobilePortrait:flex-col  ">
+                                                    <p class="font-medium text-[16px] leading-5 text-black"><?php echo esc_html($price); ?></p>
+                                                    <del class="font-medium text-[14px] leading-5 text-customGray-bright"><?php echo esc_html($discount_price); ?></del>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex justify-between items-center ">
+                                                <?php $primary_category_id = get_post_meta(get_the_ID(), '_yoast_wpseo_primary_category', true); ?>
+                                                <?php $primary_category = get_category($primary_category_id); ?>
+                                                <p class="font-normal text-[14px] leading-5 text-customBlue-light"><?php echo wp_kses_post($primary_category->name); ?></p>
+                                                <button>
+                                                    <img class=""
+                                                         src="<?php echo get_stylesheet_directory_uri() . '/img/svg/button.svg'; ?>"
+                                                         alt="barCode">
+                                                </button>
+                                            </div>
+
+                                        <?php else: ?>
+                                            <div class="flex flex-col gap-[5px]">
+                                                <?php $primary_category_id = get_post_meta(get_the_ID(), '_yoast_wpseo_primary_category', true); ?>
+                                                <?php $primary_category = get_category($primary_category_id); ?>
+                                                <p class="font-normal text-[14px] leading-5 text-customBlue-light"><?php echo wp_kses_post($primary_category->name); ?></p>
+
+                                                <button class="p-2 rounded-md border border-solid border-customGreen-normal">
+                                                    <p class="font-medium text-[14px] leading-6 text-customGreen-normal">
+                                                        Узнать цену</p>
+                                                </button>
+                                            </div>
                                         <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <button class="order-button w-full bg-neutral-200 hover:bg-red-100 p-2 rounded-xl"
-                                data-fancybox data-src="#order-form" data-modal="true">
-                            Заказать
-                        </button>
+                        <?php
+                        endwhile;
+                            wp_reset_postdata();
+                        endif;
+                        ?>
                     </div>
-                <?php
-                endwhile;
-                    wp_reset_postdata();
-                endif;
-                ?>
+                </div>
             </div>
+
+
         </div>
+
+        <!-- Футер для десктопа -->
+        <footer id="footer" class="block mobileLandscape:hidden">
+            <?php get_template_part('module/footer', null, array()); ?>
+        </footer>
+        <!-- Футер для мобильных устройств -->
+        <footer id="footer-mobile" class="hidden mobileLandscape:block ">
+            <?php get_template_part('module/footer-mobile', null, array()); ?>
+        </footer>
     </div>
 </div>
-
-<?php else : ?>
-    <article id="post-0"
-             class="container mx-auto px-4 py-8 flex-1 post no-results not-found bg-gray-100 rounded-lg shadow-lg">
-        <header class="header mb-6">
-            <h1 class="entry-title text-4xl font-bold text-gray-800 text-center" itemprop="name">
-                <?php esc_html_e('Nothing Found', 'blankslate'); ?>
-            </h1>
-        </header>
-        <div class="entry-content text-lg text-gray-600 text-center" itemprop="mainContentOfPage">
-            <p class="mb-6">
-                <?php esc_html_e('Sorry, nothing matched your search. Please try again.', 'blankslate'); ?>
-            </p>
-            <a href="<?php echo esc_url(home_url('/')); ?>"
-               class="inline-block bg-rose-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-rose-600 transition-colors">
-                <?php esc_html_e('Вернуться на главную страницу', 'blankslate'); ?>
-            </a>
-        </div>
-    </article>
-<?php endif; ?>
-
-<?php get_template_part('module/widgetes/order-form', null, array()); ?>
 <?php get_footer(); ?>
-
 
 

@@ -286,15 +286,39 @@ if (function_exists('acf_add_options_page')) {
         'capability'    => 'manage_options',
         'redirect'      => false
     ));
-
-    // Дополнительная страница
     acf_add_options_sub_page(array(
         'page_title'    => 'Меню сайта',
         'menu_title'    => 'menu',
         'parent_slug'   => 'general-settings',
         'capability'    => 'manage_options',
     ));
+    acf_add_options_sub_page(array(
+        'page_title'    => 'Преимущества',
+        'menu_title'    => 'advantages',
+        'parent_slug'   => 'general-settings',
+        'capability'    => 'manage_options',
+    ));
+    acf_add_options_sub_page(array(
+        'page_title'    => 'О Нас',
+        'menu_title'    => 'about us',
+        'parent_slug'   => 'general-settings',
+        'capability'    => 'manage_options',
+    ));
+    acf_add_options_sub_page(array(
+        'page_title'    => 'Документы',
+        'menu_title'    => 'documents',
+        'parent_slug'   => 'general-settings',
+        'capability'    => 'manage_options',
+    ));
 }
+
+
+add_filter('wpseo_breadcrumb_single_link', function($link_output, $link){
+    if ($link['text'] === 'Главная страница') { // Замените на текущее название главной страницы
+        $link_output = str_replace('Главная страница', 'Главная', $link_output);
+    }
+    return $link_output;
+}, 10, 2);
 
 
 

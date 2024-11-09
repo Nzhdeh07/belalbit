@@ -1,5 +1,7 @@
-<!--Категории и Sidebar-->
-<div class="container flex flex-wrap flex-1 my-2 mb-8 px-2.5 ">
-<h1>Контент</h1>
+<div class="grid gap-10 my-2 mb-8  ">
+    <div class="grid gap-10 my-2 ">
+        <?php get_template_part('module/flexible-content', null, array()); ?>
+
+    </div>
 </div>
 
