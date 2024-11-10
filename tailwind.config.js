@@ -29,11 +29,12 @@ module.exports = {
                 inter: ['Inter', 'sans-serif'],
             },
             colors: {
-                sitebg: '#F2F4F1', // Пример основного цвета
                 customGreen: {
                     DEFAULT: 'hsla(148, 25%, 80%, 1)',
                     normal: 'hsla(111, 48%, 55%, 1)',
                     dark: 'hsla(142, 72%, 29%, 1)',
+                    border: 'hsla(166, 91%, 9%, 1)',
+                    dotted: 'hsla(148, 25%, 80%, 1)',
                 },
                 customGray: {
                     DEFAULT: 'hsla(0, 0%, 31%, 1)',
@@ -41,6 +42,8 @@ module.exports = {
                     breadcrumb: 'hsla(0, 0%, 11%, 1)',
                     description: 'hsla(0, 0%, 20%, 1)',
                     bright: 'hsla(0, 0%, 47%, 1)',
+                    black: 'hsla(0, 0%, 11%, 1)',
+                    date: 'hsla(0, 0%, 20%, 1)',
                     light: '#F3F4F6',
                     dark: '#4B5563'
                 },

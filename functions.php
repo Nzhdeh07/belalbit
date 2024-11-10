@@ -1,7 +1,5 @@
 <?php
 
-
-
 add_action('after_setup_theme', 'blankslate_setup');
 function blankslate_setup()
 {
@@ -30,6 +28,7 @@ function blankslate_notice()
         echo '<div class="notice notice-info"><p><a href="' . esc_url($admin_url), esc_html($param) . 'dismiss" class="alignright" style="text-decoration:none"><big>' . esc_html__('Ⓧ', 'blankslate') . '</big></a>' . wp_kses_post(__('<big><strong>🏆 Thank you for using BlankSlate!</strong></big>', 'blankslate')) . '<p>' . esc_html__('Powering over 10k websites! Buy me a sandwich! 🥪', 'blankslate') . '</p><a href="https://github.com/bhadaway/blankslate/issues/57" class="button-primary" target="_blank"><strong>' . esc_html__('How do you use BlankSlate?', 'blankslate') . '</strong></a> <a href="https://opencollective.com/blankslate" class="button-primary" style="background-color:green;border-color:green" target="_blank"><strong>' . esc_html__('Donate', 'blankslate') . '</strong></a> <a href="https://wordpress.org/support/theme/blankslate/reviews/#new-post" class="button-primary" style="background-color:purple;border-color:purple" target="_blank"><strong>' . esc_html__('Review', 'blankslate') . '</strong></a> <a href="https://github.com/bhadaway/blankslate/issues" class="button-primary" style="background-color:orange;border-color:orange" target="_blank"><strong>' . esc_html__('Support', 'blankslate') . '</strong></a></p></div>';
 }
 
+
 add_action('admin_init', 'blankslate_notice_dismissed');
 function blankslate_notice_dismissed()
 {
@@ -38,12 +37,14 @@ function blankslate_notice_dismissed()
         add_user_meta($user_id, 'blankslate_notice_dismissed_11', 'true', true);
 }
 
+
 add_action('wp_enqueue_scripts', 'blankslate_enqueue');
 function blankslate_enqueue()
 {
     wp_enqueue_style('blankslate-style', get_stylesheet_uri());
     wp_enqueue_script('jquery');
 }
+
 
 add_action('wp_footer', 'blankslate_footer');
 function blankslate_footer()
@@ -76,12 +77,14 @@ function blankslate_footer()
     <?php
 }
 
+
 add_filter('document_title_separator', 'blankslate_document_title_separator');
 function blankslate_document_title_separator($sep)
 {
     $sep = esc_html('|');
     return $sep;
 }
+
 
 add_filter('the_title', 'blankslate_title');
 function blankslate_title($title)
@@ -109,6 +112,7 @@ function blankslate_schema_type()
 }
 
 add_filter('nav_menu_link_attributes', 'blankslate_schema_url', 10);
+
 function blankslate_schema_url($atts)
 {
     $atts['itemprop'] = 'url';
@@ -121,11 +125,13 @@ if (!function_exists('blankslate_wp_body_open')) {
         do_action('wp_body_open');
     }
 }
+
 add_action('wp_body_open', 'blankslate_skip_link', 5);
 function blankslate_skip_link()
 {
     echo '<a href="#content" class="skip-link screen-reader-text">' . esc_html__('Skip to the content', 'blankslate') . '</a>';
 }
+
 
 add_filter('the_content_more_link', 'blankslate_read_more_link');
 function blankslate_read_more_link()
@@ -135,6 +141,7 @@ function blankslate_read_more_link()
     }
 }
 
+
 add_filter('excerpt_more', 'blankslate_excerpt_read_more_link');
 function blankslate_excerpt_read_more_link($more)
 {
@@ -143,6 +150,7 @@ function blankslate_excerpt_read_more_link($more)
         return ' <a href="' . esc_url(get_permalink($post->ID)) . '" class="more-link">' . sprintf(__('...%s', 'blankslate'), '<span class="screen-reader-text">  ' . esc_html(get_the_title()) . '</span>') . '</a>';
     }
 }
+
 
 add_filter('big_image_size_threshold', '__return_false');
 add_filter('intermediate_image_sizes_advanced', 'blankslate_image_insert_override');
@@ -206,7 +214,39 @@ function blankslate_comment_count($count)
 
 add_filter('post_type_labels_post', 'rename_posts_labels');
 
-# заменим слово "записи" на "посты" для типа записей 'post'
+
+function register_blog_post_type() {
+    $labels = array(
+        'name'               => 'Блоги',
+        'singular_name'      => 'Блог',
+        'menu_name'          => 'Блоги',
+        'name_admin_bar'     => 'Блог',
+        'add_new'            => 'Добавить новый',
+        'add_new_item'       => 'Добавить новый блог',
+        'new_item'           => 'Новый блог',
+        'edit_item'          => 'Редактировать блог',
+        'view_item'          => 'Просмотреть блог',
+        'all_items'          => 'Все блоги',
+        'search_items'       => 'Найти блоги',
+        'not_found'          => 'Блоги не найдены',
+        'not_found_in_trash' => 'В корзине блоги не найдены'
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'has_archive'        => true,
+        'rewrite'            => array('slug' => 'blog'),
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'comments'),
+        'show_in_rest'       => true, // Включение поддержки для редактора Гутенберга
+        'menu_icon'          => 'dashicons-welcome-write-blog', // Иконка в меню админ-панели
+    );
+
+    register_post_type('blog', $args);
+}
+add_action('init', 'register_blog_post_type');
+
+# заменим слово "записи" на "Товары" для типа записей 'post'
 function rename_posts_labels($labels)
 {
     $new = [
@@ -237,7 +277,7 @@ function rename_posts_labels($labels)
 }
 
 
-// Добавляем поле для выбора изображения в форму добавления и редактирования рубрики
+// Добавляет поле для выбора изображения в форму добавления и редактирования рубрики
 require_once __DIR__ . '/wp-term-image.php';
 add_action('admin_init', [\Kama\WP_Term_Image::class, 'init']);
 
@@ -251,30 +291,10 @@ function custom_breadcrumb_separator($separator)
 function exclude_pages_from_search($query)
 {
     if ($query->is_search() && !is_admin() && $query->is_main_query()) {
-        $query->set('post_type', 'post'); // Исключаем страницы, оставляем только записи
+        $query->set('post_type', 'post');
     }
 }
-
 add_action('pre_get_posts', 'exclude_pages_from_search');
-
-
-global $wpdb;
-$attachments = $wpdb->get_results( "
-    SELECT ID, guid 
-    FROM {$wpdb->posts} 
-    WHERE post_type = 'attachment' 
-      AND post_mime_type LIKE 'image/%'
-" );
-
-foreach ( $attachments as $attachment ) {
-    $file_path = get_attached_file( $attachment->ID );
-    
-    // Проверяем, существует ли файл
-    if ( ! file_exists( $file_path ) ) {
-        // Удаляем медиафайл, если файла нет на сервере
-        wp_delete_attachment( $attachment->ID, true );
-    }
-}
 
 
 if (function_exists('acf_add_options_page')) {
@@ -321,6 +341,12 @@ add_filter('wpseo_breadcrumb_single_link', function($link_output, $link){
 }, 10, 2);
 
 
+
+function enqueue_fancybox() {
+    wp_enqueue_style('fancybox-css', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.27/dist/fancybox.css');
+    wp_enqueue_script('fancybox-js', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.27/dist/fancybox.umd.js', array('jquery'), null, true);
+}
+add_action('wp_enqueue_scripts', 'enqueue_fancybox');
 
 
 

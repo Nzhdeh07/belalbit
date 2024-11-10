@@ -127,14 +127,14 @@ a:focus {
 #productSwiper #swiper-button-next {
   position: absolute;
   top: 50%; /* Сдвигает кнопку на половину высоты родителя */
-  right: 0; /* Прижимает кнопку к правому краю */
+  right: 10px; /* Прижимает кнопку к правому краю */
   transform: translateY(-50%); /* Центрирует кнопку по вертикали */
   z-index: 50;
 }
 #productSwiper #swiper-button-prev {
   position: absolute;
   top: 50%; /* Сдвигает кнопку на половину высоты родителя */
-  left: 0; /* Прижимает кнопку к правому краю */
+  left: 10px; /* Прижимает кнопку к правому краю */
   transform: translateY(-50%); /* Центрирует кнопку по вертикали */
   z-index: 50;
 }
@@ -147,9 +147,74 @@ a:focus {
 }
 #productSwiper #productSwiper-wrapper #product-swiper-slide img {
   height: 168px;
-  object-fit: contain;
+  object-fit: cover;
 }
 #productSwiper #productSwiper-wrapper #product-swiper-slide #add-button {
+  width: 32px;
+  height: 32px;
+}
+
+#reviewsSwiper {
+  height: auto;
+}
+#reviewsSwiper #reviews-button-next {
+  position: absolute;
+  top: 50%; /* Сдвигает кнопку на половину высоты родителя */
+  right: 10px; /* Прижимает кнопку к правому краю */
+  transform: translateY(-50%); /* Центрирует кнопку по вертикали */
+  z-index: 50;
+}
+#reviewsSwiper #reviews-button-prev {
+  position: absolute;
+  top: 50%; /* Сдвигает кнопку на половину высоты родителя */
+  left: 10px; /* Прижимает кнопку к правому краю */
+  transform: translateY(-50%); /* Центрирует кнопку по вертикали */
+  z-index: 50;
+}
+#reviewsSwiper #productSwiper-wrapper #product-swiper-slide {
+  width: auto;
+  height: 100%;
+  text-align: left;
+  justify-content: space-between;
+  align-items: normal;
+}
+#reviewsSwiper #productSwiper-wrapper #product-swiper-slide .img {
+  height: 100%;
+  object-fit: cover;
+}
+#reviewsSwiper #productSwiper-wrapper #product-swiper-slide #add-button {
+  width: 32px;
+  height: 32px;
+}
+
+#documentSwiper {
+  height: auto;
+}
+#documentSwiper #swiper-button-next {
+  position: absolute;
+  top: 50%; /* Сдвигает кнопку на половину высоты родителя */
+  right: 10px; /* Прижимает кнопку к правому краю */
+  transform: translateY(-50%); /* Центрирует кнопку по вертикали */
+  z-index: 50;
+}
+#documentSwiper #swiper-button-prev {
+  position: absolute;
+  top: 50%; /* Сдвигает кнопку на половину высоты родителя */
+  left: 10px; /* Прижимает кнопку к правому краю */
+  transform: translateY(-50%); /* Центрирует кнопку по вертикали */
+  z-index: 50;
+}
+#documentSwiper #productSwiper-wrapper #product-swiper-slide {
+  width: auto;
+  text-align: left;
+  justify-content: space-between;
+  align-items: normal;
+}
+#documentSwiper #productSwiper-wrapper #product-swiper-slide .img {
+  height: 100%;
+  object-fit: cover;
+}
+#documentSwiper #productSwiper-wrapper #product-swiper-slide #add-button {
   width: 32px;
   height: 32px;
 }
@@ -167,6 +232,84 @@ a:focus {
   font-size: 14px;
   line-height: 20px;
   color: black;
+}
+
+/* Стили для инпута */
+.custom-number-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  outline: none;
+  width: 66px;
+  height: 36px;
+  padding: 6px 10px;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  font-weight: normal; /* Это соответствует 'font-normal' */
+  font-size: 16px; /* Для 'text-[16px]' */
+  line-height: 1.25; /* Для 'leading-5' (где 5 — это примерно 1.25) */
+  text-align: center;
+}
+
+.custom-number-input:focus {
+  border-color: #007bff; /* Цвет границы при фокусе */
+}
+
+/* Убираем стрелочки */
+.custom-number-input::-webkit-outer-spin-button,
+.custom-number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-number-input[type=number] {
+  -moz-appearance: textfield; /* Убирает стрелочки в Firefox */
+}
+
+.navigation.pagination {
+  padding: 13px 15px;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+  font-weight: bold; /* Это соответствует 'font-normal' */
+  font-size: 16px; /* Для 'text-[16px]' */
+  line-height: 1.25; /* Для 'leading-5' (где 5 — это примерно 1.25) */
+  text-align: center;
+}
+.navigation.pagination .nav-links {
+  display: flex;
+  gap: 20px;
+}
+.navigation.pagination span {
+  color: #94A3B8;
+}
+.navigation.pagination a {
+  color: #68C457;
+}
+
+.accordion-content {
+  display: none;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordion-content.show {
+  display: block;
+}
+
+/* Стиль для иконки */
+.toggle-icon {
+  transition: transform 0.3s ease; /* Плавный переход */
+}
+
+/* Класс для поворота иконки на 30 градусов */
+.toggle-icon.rotate {
+  transform: rotate(30deg);
+}
+
+.toggle-icon.rotate {
+  transform: rotate(45deg); /* Поворот на 30 градусов */
+  transition: transform 0.3s ease; /* Плавный переход */
 }
 
 /*# sourceMappingURL=style.css.map */

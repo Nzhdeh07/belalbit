@@ -1,3 +1,4 @@
+
 <?php if (have_rows('flexible-content')) : ?>
     <?php while (have_rows('flexible-content')) :
         the_row(); ?>
@@ -423,6 +424,106 @@
         </div>
 
 
+    <?php elseif (get_row_layout() == 'document-slider') : ?>
+        <div class="px-5 mobileLandscape:px-2.5">
+
+            <div class="grid grid-cols-2 mobileLandscape:grid-cols-1 gap-5">
+                <div class="flex flex-col gap-5 py-10 px-[15px] mobileLandscape:px-2.5 bg-white">
+                    <h3 class="font-medium text-[32px] leading-[48px] text-black">Документы о полномочиях</h3>
+                    <div class="grid h-[500px] mobileLandscape:h-[210px]">
+                        <div id="documentSwiper" class="swiper">
+                            <div id="productSwiper-wrapper" class="swiper-wrapper">
+                                <?php $documents = get_field('documents', 'options'); ?>
+                                <?php if ($documents) : // Проверяем, что поле не пустое
+                                    foreach ($documents as $document) :
+                                        $document_image = $document['document-img'];
+                                        ?>
+                                        <div id="product-swiper-slide"
+                                             class="swiper-slide flex flex-col justify-between gap-2.5 p-1.5 rounded-md bg-white">
+
+                                            <?php if (!empty($document_image)): ?>
+                                                <a class="img" href="<?php echo esc_url($document_image['url']); ?>"
+                                                   data-fancybox="gallery-document">
+                                                    <img class="object-cover"
+                                                         src="<?php echo esc_url($document_image['url']); ?>"
+                                                         alt="<?php echo esc_attr($document_image['alt']); ?>">
+                                                </a>
+                                            <?php endif; ?>
+
+                                        </div>
+
+                                    <?php
+                                    endforeach;
+                                    wp_reset_postdata(); // Сбрасываем данные после запроса
+                                else :
+                                    echo 'Нет постов в этой категории.';
+                                endif;
+                                ?>
+
+
+                            </div>
+                            <div id="swiper-button-prev">
+                                <img class="" src="<?php echo get_stylesheet_directory_uri() . '/img/svg/prev.svg'; ?>"
+                                     alt="mobile">
+                            </div>
+                            <div id="swiper-button-next">
+                                <img class="" src="<?php echo get_stylesheet_directory_uri() . '/img/svg/next.svg'; ?>"
+                                     alt="mobile">
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-5 py-10 px-[15px] mobileLandscape:px-2.5  bg-white">
+                    <h3 class="font-medium text-[32px] leading-[48px] text-black">Отзывы</h3>
+                    <div class="grid h-[500px] mobileLandscape:h-[210px]">
+                        <div id="reviewsSwiper" class="swiper">
+                            <div id="productSwiper-wrapper" class="swiper-wrapper">
+                                <?php $documents = get_field('reviews', 'options'); ?>
+                                <?php if ($documents) : // Проверяем, что поле не пустое
+                                    foreach ($documents as $document) :
+                                        $document_image = $document['reviews-img'];
+                                        ?>
+                                        <div id="product-swiper-slide"
+                                             class="swiper-slide flex flex-col justify-between gap-2.5 p-1.5 rounded-md bg-white">
+
+                                            <?php if (!empty($document_image)): ?>
+                                                <a class="img" href="<?php echo esc_url($document_image['url']); ?>"
+                                                   data-fancybox="gallery">
+                                                    <img class="object-cover"
+                                                         src="<?php echo esc_url($document_image['url']); ?>"
+                                                         alt="<?php echo esc_attr($document_image['alt']); ?>">
+                                                </a>
+                                            <?php endif; ?>
+
+                                        </div>
+
+                                    <?php
+                                    endforeach;
+                                    wp_reset_postdata(); // Сбрасываем данные после запроса
+                                else :
+                                    echo 'Нет постов в этой категории.';
+                                endif;
+                                ?>
+
+
+                            </div>
+                            <div id="reviews-button-prev">
+                                <img class="" src="<?php echo get_stylesheet_directory_uri() . '/img/svg/prev.svg'; ?>"
+                                     alt="mobile">
+                            </div>
+                            <div id="reviews-button-next">
+                                <img class="" src="<?php echo get_stylesheet_directory_uri() . '/img/svg/next.svg'; ?>"
+                                     alt="mobile">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
     <?php elseif (get_row_layout() == 'details') : ?>
         <div class="px-5 mobileLandscape:px-2.5">
             <?php $details_text = get_sub_field('details-text'); ?>
@@ -435,6 +536,36 @@
                 <?php endif; ?>
             </div>
         </div>
+
+
+    <?php elseif (get_row_layout() == 'questions-answers') : ?>
+        <div class="px-5 mobileLandscape:px-2.5">
+            <?php if (have_rows('question-answer')) : ?>
+                <div class="flex flex-col items-center justify-center">
+                    <?php while (have_rows('question-answer')) : the_row(); ?>
+                        <?php
+                        $question = get_sub_field('question');
+                        $answer = get_sub_field('answer');
+                        ?>
+                        <div class="flex w-1/2 py-[1px] min-w-[360px] items-center justify-between max-w-[770px] first:border-t border-b border-solid border-customGreen-border">
+                            <h3 class="font-normal text-[19px] leading-[34px] text-black text-left">
+                                <?php echo esc_html($question); ?>
+                            </h3>
+
+                            <button class="accordion-toggle" aria-expanded="false">
+                                <img src="<?php echo get_stylesheet_directory_uri() . '/img/svg/plus.svg'; ?>" alt="toggle" class="toggle-icon">
+                            </button>
+                        </div>
+
+                        <div class="accordion-content w-1/2 min-w-[360px] max-w-[750px] hidden px-5 py-2 text-left">
+                            <p class="text-[16px] leading-5 text-black"><?php echo wp_kses_post($answer); ?></p>
+                        </div>
+
+                    <?php endwhile; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
 
     <?php endif; ?>
 

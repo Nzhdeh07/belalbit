@@ -251,3 +251,122 @@ var swiper = new Swiper("#documentSwiper", {
         },
     },
 });
+
+
+
+var swiper = new Swiper("#reviewsSwiper", {
+
+    slidesPerView: 2,
+    spaceBetween: 10,
+    pagination: {
+        clickable: true,
+    },
+    navigation: {
+        nextEl: "#reviews-button-next",
+        prevEl: "#reviews-button-prev",
+    },
+    on: {
+        init: function () {
+            // Скрыть prev кнопку при инициализации
+            document.getElementById("reviews-button-prev").style.display = "none";
+        },
+        slideChange: function () {
+            // Показывать или скрывать кнопки в зависимости от позиции слайда
+            var isBeginning = this.isBeginning;
+            var isEnd = this.isEnd;
+
+            // Если слайд на первом элементе, скрываем prev кнопку
+            document.getElementById("reviews-button-prev").style.display = isBeginning ? "none" : "block";
+
+            // Если слайд на последнем элементе, скрываем next кнопку
+            document.getElementById("reviews-button-next").style.display = isEnd ? "none" : "block";
+        },
+    },
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    Fancybox.bind('[data-fancybox="gallery"]', {
+        // Настройки Fancybox (например, чтобы показывать стрелки и навигацию)
+        infinite: true,
+        Thumbs: {
+            autoStart: true,
+        },
+        Toolbar: {
+            display: {
+                left: [],
+                middle: ["zoomIn", "zoomOut", "toggle1to1", "rotateCCW", "rotateCW", "flipX", "flipY"],
+                right: ["close"],
+            }
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    Fancybox.bind('[data-fancybox="gallery-document"]', {
+        // Настройки Fancybox (например, чтобы показывать стрелки и навигацию)
+        infinite: true,
+        Thumbs: {
+            autoStart: true,
+        },
+        Toolbar: {
+            display: {
+                left: [],
+                middle: ["zoomIn", "zoomOut", "toggle1to1", "rotateCCW", "rotateCW", "flipX", "flipY"],
+                right: ["close"],
+            }
+        }
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const toggles = document.querySelectorAll('.accordion-toggle');
+
+    toggles.forEach(toggle => {
+        toggle.addEventListener('click', function () {
+            const content = this.closest('div').nextElementSibling;
+            content.classList.toggle('show');
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const toggles = document.querySelectorAll(".accordion-toggle");
+
+    toggles.forEach((toggle) => {
+        toggle.addEventListener("click", function() {
+            // Найти соответствующий контент аккордеона
+            const content = toggle.parentElement.nextElementSibling;
+
+            // Переключить видимость содержимого
+            content.classList.toggle("hidden");
+
+            // Переключить атрибут `aria-expanded`
+            const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+            toggle.setAttribute("aria-expanded", !isExpanded);
+
+            // Повернуть иконку
+            const img = toggle.querySelector(".toggle-icon");
+            img.classList.toggle("rotate", !isExpanded);
+        });
+    });
+});
+
+
+Fancybox.bind('[data-fancybox]', {
+    buttons: [
+        "zoom",
+        "close",
+        "fullscreen",
+    ],
+    zoom: {
+        enabled: true,
+        duration: 300,
+    },
+    transitionEffect: "tube",
+});
+
+
+var menuIcon = "<?php echo get_stylesheet_directory_uri(); ?>/img/svg/menu.svg";
+var closeIcon = "<?php echo get_stylesheet_directory_uri(); ?>/img/svg/close-white.svg";

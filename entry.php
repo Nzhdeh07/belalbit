@@ -120,7 +120,29 @@
     <!--Технические характеристики товара-->
     <div class="flex flex-col">
         <h4 class="font-medium text-xl leading-[30px] text-black">Технические характеристики</h4>
+        <?php $banner_field = get_field('specifications'); ?>
+        <?php $banner_count = is_array($banner_field) ? count($banner_field) : 0; ?>
+        <div class="flex flex-col gap-2.5 py-2.5  justify-center  ">
+            <?php while (have_rows('specifications')) : the_row(); ?>
+                <?php
+                $specification_title = get_sub_field('specification-title');
+                $specification_value = get_sub_field('specification-value');
+                ?>
+                <div class="flex items-center justify-between border-b border-dotted border-customGreen-dotted">
+                    <p class="font-normal text-[19px] leading-[34px]  text-customGray-black text-left">
+                        <?php echo esc_attr($specification_title); ?>
+                    </p>
+
+                    <p class="font-normal text-[19px] leading-[34px]  text-customGray-black text-left">
+                        <?php echo esc_attr($specification_value); ?>
+                    </p>
+                </div>
+
+                <?php $questions_count += 1 ?>
+            <?php endwhile; ?>
+        </div>
     </div>
+
 
     <div class="grid gap-2.5 ">
         <h1 class="font-medium text-[32px] leading-[48px]" itemprop="name">
