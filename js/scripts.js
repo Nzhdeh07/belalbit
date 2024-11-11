@@ -172,7 +172,7 @@ var swiper = new Swiper("#productSwiper", {
 });
 
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     function checkTextBlocks() {
         $('.text-hide .text-block').each(function () {
             var $this = $(this);
@@ -211,7 +211,7 @@ jQuery(document).ready(function($) {
     checkTextBlocks();
 
     let lastWindowWidth = jQuery(window).width();
-    jQuery(window).on('resize', function() {
+    jQuery(window).on('resize', function () {
         let currentWindowWidth = jQuery(window).width();
         if (currentWindowWidth !== lastWindowWidth) {
             checkTextBlocks();
@@ -219,7 +219,6 @@ jQuery(document).ready(function($) {
         }
     });
 });
-
 
 
 var swiper = new Swiper("#documentSwiper", {
@@ -253,7 +252,6 @@ var swiper = new Swiper("#documentSwiper", {
 });
 
 
-
 var swiper = new Swiper("#reviewsSwiper", {
 
     slidesPerView: 2,
@@ -285,7 +283,7 @@ var swiper = new Swiper("#reviewsSwiper", {
 });
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     Fancybox.bind('[data-fancybox="gallery"]', {
         // Настройки Fancybox (например, чтобы показывать стрелки и навигацию)
         infinite: true,
@@ -302,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     Fancybox.bind('[data-fancybox="gallery-document"]', {
         // Настройки Fancybox (например, чтобы показывать стрелки и навигацию)
         infinite: true,
@@ -331,11 +329,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const toggles = document.querySelectorAll(".accordion-toggle");
 
     toggles.forEach((toggle) => {
-        toggle.addEventListener("click", function() {
+        toggle.addEventListener("click", function () {
             // Найти соответствующий контент аккордеона
             const content = toggle.parentElement.nextElementSibling;
 
@@ -368,5 +366,67 @@ Fancybox.bind('[data-fancybox]', {
 });
 
 
-var menuIcon = "<?php echo get_stylesheet_directory_uri(); ?>/img/svg/menu.svg";
-var closeIcon = "<?php echo get_stylesheet_directory_uri(); ?>/img/svg/close-white.svg";
+// Инициализация Fancybox
+Fancybox.bind('[data-fancybox="contact-modal"]', {});
+
+
+document.querySelectorAll('.buy-button').forEach(button => {
+    button.addEventListener('click', () => {
+        // Найти форму внутри элемента с ID buy
+        const form = document.querySelector('#buy form');
+
+        // Устанавливаем значения полей в найденной форме
+        form.querySelector('#productId').value = button.dataset.productid;
+        form.querySelector('#productPrice').value = button.dataset.price;
+        form.querySelector('#productTitle').value = button.dataset.ptitle;
+        form.querySelector('#productUrl').value = button.dataset.url;
+    });
+});
+
+
+$(document).ready(function () {
+    $('form:not([action])').on('submit', function (e) {
+        e.preventDefault();
+        const form = $(this);
+
+        const inputError = $(form).find('.error-message').length === 0;
+        if (inputError) {
+            //! Отправка формы
+            sendForm(form);
+
+            if ($(form).hasClass('')) {
+                console.log('Отправка формы');
+            }
+        }
+    });
+
+    // Отправка формы конец
+    function sendForm(form) {
+        var arr = form.serializeArray(),
+            obj = {};
+        $.each(arr, function (indx, el) {
+            obj[el.name] ? obj[el.name].push(el.value) : (obj[el.name] = [el.value]);
+        });
+
+        try {
+            $.ajax({
+                type: "POST",
+                url: `${dirURL}/send-order.php`,
+                data: obj
+            }).done(function () {
+
+                setTimeout(() => {
+                    form.trigger("reset");
+                }, 1000);
+            });
+        } catch (error) {
+            console.log('Произошла ошибка!', 'error');
+        }
+    }
+});
+
+
+
+
+
+

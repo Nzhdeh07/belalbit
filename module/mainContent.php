@@ -1,5 +1,5 @@
-<div class="grid gap-10 my-2 mb-8  ">
-    <div class="grid gap-10 my-2 ">
+<div class="grid gap-10 mt-12 mb-10 ">
+    <div class="grid gap-10  ">
         <?php get_template_part('module/flexible-content', null, array()); ?>
 
     </div>

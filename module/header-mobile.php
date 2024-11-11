@@ -1,7 +1,7 @@
 <div class="flex flex-col w-full bg-white">
     <?php get_template_part('searchform-mobile', null, array()); ?>
 
-    <div class="flex justify-between p-2.5 gap-5  h-full">
+    <div class="flex justify-between p-2.5 gap-[5px]  h-full">
         <!-- Первый блок - Контакты -->
         <div class="flex  flex-col flex-1 justify-center items-center  gap-[5px] ">
             <div class="flex gap-[5px] items-center">
@@ -21,7 +21,7 @@
         </div>
 
         <!-- Второй блок - Почта  -->
-        <div class="flex flex-col flex-1 justify-center    gap-[5px] font-semibold text-[14px] leading-5 text-customGray">
+        <div class="flex flex-col flex-1 justify-center  gap-[5px] font-semibold text-[14px] leading-5 text-customGray">
             <p class="">Почта для заявок:</p>
             <p><?php echo get_field('mail', 'options') ?></p>
         </div>

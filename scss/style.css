@@ -219,8 +219,12 @@ a:focus {
   height: 32px;
 }
 
-#breadcrumbs a:last-child {
-  color: hsl(111, 48%, 55%); /* Цвет для последнего элемента */
+#breadcrumbs a {
+  color: hsl(111, 48%, 55%);
+}
+
+.last-gray .breadcrumb_last {
+  color: hsl(0, 0%, 11%);
 }
 
 .underscore a:last-child {
@@ -310,6 +314,12 @@ a:focus {
 .toggle-icon.rotate {
   transform: rotate(45deg); /* Поворот на 30 градусов */
   transition: transform 0.3s ease; /* Плавный переход */
+}
+
+#contact-modal, #by, #price {
+  width: 50%;
+  min-width: 340px;
+  max-width: 442px;
 }
 
 /*# sourceMappingURL=style.css.map */

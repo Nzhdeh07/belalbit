@@ -126,9 +126,11 @@
             <?php endforeach; ?>
         </div>
         <div class="">
-            <button class="py-1.5 px-[18px] border border-solid border-white rounded-[6px]">
+            <button class="button py-1.5 px-[18px] border border-solid border-white rounded-[6px]"
+                    data-fancybox="contact-modal" data-src="#contact-modal"  href="javascript:;">
                 Обратная связь
             </button>
         </div>
     </div>
 </div>
+

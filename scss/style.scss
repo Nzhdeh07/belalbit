@@ -266,8 +266,12 @@ a:focus {
 }
 
 
-#breadcrumbs a:last-child {
-  color: hsla(111, 48%, 55%, 1); /* Цвет для последнего элемента */
+#breadcrumbs a {
+  color: hsla(111, 48%, 55%, 1);
+}
+
+.last-gray .breadcrumb_last{
+  color: hsla(0, 0%, 11%, 1);
 }
 
 .underscore a:last-child {
@@ -363,6 +367,14 @@ a:focus {
   transform: rotate(45deg); /* Поворот на 30 градусов */
   transition: transform 0.3s ease; /* Плавный переход */
 }
+
+#contact-modal, #by, #price{
+  width: 50%;
+  min-width: 340px;
+  max-width: 442px;
+}
+
+
 
 
 

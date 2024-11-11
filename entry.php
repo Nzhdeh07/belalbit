@@ -95,7 +95,12 @@
                         <?php $discount_price = get_field('post-discounted-price'); ?>
                         <?php if ($price): ?>
 
-                            <button class="py-3 px-[18px] rounded-md bg-customGreen-normal">
+                            <button class="buy-button py-3 px-[18px] rounded-md bg-customGreen-normal"
+                                    data-fancybox="buy" data-src="#buy" href="javascript:;"
+                                    data-productId="<?php echo get_the_ID(); ?>"
+                                    data-price="<?php echo esc_attr($discount_price ? $discount_price : $price); ?>"
+                                    data-ptitle="<?php the_title(); ?>"
+                                    data-url="<?php echo esc_url(get_permalink()); ?>">
                                 <p class="font-medium text-[16px] leading-6 text-white">Заказать</p>
                             </button>
                             <div class="flex gap-2.5 items-center wideDesktop:flex-col wideDesktop:gap-2.5 wideDesktop:items-start">
@@ -104,7 +109,8 @@
                             </div>
 
                         <?php else: ?>
-                            <button class="py-3 px-[18px] rounded-md bg-customGray">
+                            <button class="py-3 px-[18px] rounded-md bg-customGray" data-fancybox="price"
+                                    data-src="#price" href="javascript:;">
                                 <p class="font-medium text-[16px] leading-6 text-white">Узнать цену</p>
                             </button>
                             <p class="font-medium text-[24px] leading-9 text-black">По запросу</p>

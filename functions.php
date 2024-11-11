@@ -217,9 +217,9 @@ add_filter('post_type_labels_post', 'rename_posts_labels');
 
 function register_blog_post_type() {
     $labels = array(
-        'name'               => 'Блоги',
+        'name'               => 'Блог',
         'singular_name'      => 'Блог',
-        'menu_name'          => 'Блоги',
+        'menu_name'          => 'Блог',
         'name_admin_bar'     => 'Блог',
         'add_new'            => 'Добавить новый',
         'add_new_item'       => 'Добавить новый блог',
@@ -285,7 +285,7 @@ add_action('admin_init', [\Kama\WP_Term_Image::class, 'init']);
 add_filter('wpseo_breadcrumb_separator', 'custom_breadcrumb_separator');
 function custom_breadcrumb_separator($separator)
 {
-    return '<span class="mx-2">/</span>';
+    return '<span>/</span>';
 }
 
 function exclude_pages_from_search($query)
@@ -295,6 +295,7 @@ function exclude_pages_from_search($query)
     }
 }
 add_action('pre_get_posts', 'exclude_pages_from_search');
+
 
 
 if (function_exists('acf_add_options_page')) {

@@ -8,7 +8,7 @@
     </div>
 
     <!--    Основной раздел-->
-    <div class="flex flex-col gap-2.5">
+    <div class="flex flex-col">
 
         <!-- Шапка для десктопа -->
         <div id="header" class="block mobileLandscape:hidden">
@@ -22,7 +22,6 @@
         <!-- Основной контент -->
         <div class="flex-grow flex-1">
             <?php get_template_part('module/mainContent', null, array()); ?>
-
         </div>
 
 

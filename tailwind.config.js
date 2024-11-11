@@ -43,6 +43,7 @@ module.exports = {
                     description: 'hsla(0, 0%, 20%, 1)',
                     bright: 'hsla(0, 0%, 47%, 1)',
                     black: 'hsla(0, 0%, 11%, 1)',
+                    contact: 'hsla(0, 0%, 31%, 1)',
                     date: 'hsla(0, 0%, 20%, 1)',
                     light: '#F3F4F6',
                     dark: '#4B5563'

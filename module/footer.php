@@ -50,7 +50,8 @@
                 <!--Почта-->
                 <p class="font-semibold text-[16px] leading-5 text-white "><?php echo get_field('mail', 'options') ?></p>
 
-                <button class="py-2 px-4 rounded-[6px] bg-customGreen-normal font-medium text-[14px] leading-6 text-black cursor-pointer">
+                <button class="button py-2 px-4 rounded-[6px] bg-customGreen-normal font-medium text-[14px] leading-6 text-black cursor-pointer"
+                        data-fancybox="contact" data-src="#contact-modal" href="javascript:;" >
                     Связаться
                 </button>
             </div>
@@ -146,8 +147,9 @@
         <!-- Вертикальный разделитель -->
 
         <div class="w-full border border-solid border-customGreen"></div>
-        
-        <p class="text-center  font-normal text-[14px] leading-4 text-customGreen">Сайт носит исключительно информационный характер и ни при каких условиях не является публичной офертой.
+
+        <p class="text-center  font-normal text-[14px] leading-4 text-customGreen">Сайт носит исключительно
+            информационный характер и ни при каких условиях не является публичной офертой.
             <a class="underline" href="https://digitalgoweb.com">Разработка сайта от Goweb</a>
         </p>
 
