@@ -1,3 +1,14 @@
+<?php
+setcookie('viewedProd['. $post->ID .']', $post->ID, time()+6600, COOKIEPATH, COOKIE_DOMAIN, false);
+
+if ($_COOKIE['viewedProd']){
+    if(count($_COOKIE['viewedProd']) > 6){
+        unset($_COOKIE['viewedProd['. array_slice($_COOKIE['viewedProd'], 0, 1)[0] .']']);
+        setcookie('viewedProd['. array_slice($_COOKIE['viewedProd'], 0, 1)[0] .']', '', time() - 3600, '/');
+    }
+}
+?>
+
 <?php get_header(); ?>
 <div class="grid grid-cols-[317px_1fr] tabletLandscape:grid-cols-1 min-h-full">
 

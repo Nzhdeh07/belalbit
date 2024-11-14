@@ -51,7 +51,7 @@
                 <p class="font-semibold text-[16px] leading-5 text-white "><?php echo get_field('mail', 'options') ?></p>
 
                 <button class="button py-2 px-4 rounded-[6px] bg-customGreen-normal font-medium text-[14px] leading-6 text-black cursor-pointer"
-                        data-fancybox="contact" data-src="#contact-modal" href="javascript:;" >
+                        data-fancybox="contact" data-src="#contact-modal" href="javascript:;">
                     Связаться
                 </button>
             </div>
@@ -99,7 +99,12 @@
                 <div class="flex justify-between items-center">
                     <p class="uppercase font-bold text-[16px] leading-6 text-customGreen ">Адрес офиса</p>
                     <div class="flex  gap-1 items-center ">
-                        <p class="font-medium text-[14px] leading-5 text-customGreen">Схема проезда</p>
+                        <?php $link_url = get_field('of-link', 'options'); ?>
+                        <p class="font-medium text-[14px] leading-5 text-customGreen cursor-pointer ">
+                            <a href="<?php echo esc_url($link_url); ?>" target="_blank" rel="noopener noreferrer">
+                                Схема проезда
+                            </a>
+                        </p>
                         <svg width="18" height="18" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.166 11.7501C17.166 13.6251 16.791 14.9376 15.951 15.7851L11.166 11.0001L16.9635 5.20264C17.0985 5.79514 17.166 6.47013 17.166 7.25013V11.7501Z"
                                   stroke="hsla(148, 25%, 80%, 1)" stroke-linecap="round" stroke-linejoin="round"/>
@@ -121,7 +126,12 @@
                 <div class="flex justify-between items-center">
                     <p class="uppercase font-bold text-[16px] leading-6 text-customGreen ">Адрес склада</p>
                     <div class="flex gap-1 items-center ">
-                        <p class="font-medium text-[14px] leading-5 text-customGreen ">Схема проезда</p>
+                        <?php $link_url = get_field('st-link', 'options'); ?>
+                        <p class="font-medium text-[14px] leading-5 text-customGreen cursor-pointer">
+                            <a href="<?php echo esc_url($link_url); ?>" target="_blank" rel="noopener noreferrer">
+                                Схема проезда
+                            </a>
+                        </p>
                         <svg width="18" height="18" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.166 11.7501C17.166 13.6251 16.791 14.9376 15.951 15.7851L11.166 11.0001L16.9635 5.20264C17.0985 5.79514 17.166 6.47013 17.166 7.25013V11.7501Z"
                                   stroke="hsla(148, 25%, 80%, 1)" stroke-linecap="round" stroke-linejoin="round"/>

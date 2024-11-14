@@ -13,11 +13,11 @@
     <div class="flex flex-col gap-2.5">
 
         <!-- Шапка для десктопа -->
-        <div id="header" class="block mobileLandscape:hidden">
+        <div id="header" class="block mobileLandscape:hidden sticky top-8 z-50">
             <?php get_template_part('module/header', null, array()); ?>
         </div>
         <!-- Шапка  для мобильных устройств-->
-        <div id="header-mobile" class="hidden mobileLandscape:flex">
+        <div id="header-mobile" class="hidden mobileLandscape:flex sticky top-8 z-50">
             <?php get_template_part('module/header-mobile', null, array()); ?>
         </div>
 

@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-[30px] px-5 pb-[30px] ">
+<div class="flex flex-col gap-[30px] px-5 pb-[30px] sticky top-8">
     <div class="flex flex-col logo gap-[30px] cursor-pointer">
         <a href="<?php echo home_url(); ?>">
             <img class="" src="<?php echo get_stylesheet_directory_uri() . '/img/logo.png'; ?>"

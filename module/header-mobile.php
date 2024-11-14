@@ -1,4 +1,4 @@
-<div class="flex flex-col w-full bg-white">
+<div class="flex flex-col w-full bg-white z-100">
     <?php get_template_part('searchform-mobile', null, array()); ?>
 
     <div class="flex justify-between p-2.5 gap-[5px]  h-full">
@@ -16,7 +16,7 @@
         </div>
 
         <!-- Вертикальный разделитель -->
-        <div class=" flex items-center">
+        <div id="sl" class=" flex items-center">
             <div class=" border border-mGreen border-solid h-full"></div>
         </div>
 
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="flex justify-between h-full bg-customGreen-normal ">
+    <div id="men" class="flex justify-between h-full bg-customGreen-normal transition-all duration-300">
         <!-- Первый блок - Каталог -->
         <button id="catalog-button" class="flex flex-1 justify-center items-center gap-[5px] p-2.5 ">
             <img id="catalog-icon" src="<?php echo get_stylesheet_directory_uri() . '/img/svg/menu.svg'; ?>" alt="call">
@@ -50,7 +50,7 @@
     </div>
     <div id="menu-dropdown" class="hidden py-5">
         <div class="flex flex-col justify-around gap-2.5 items-center">
-            <?php foreach (get_field('menu', 'options') as $menu) : ?>
+            <?php foreach (get_field('site-menu', 'options') as $menu) : ?>
                 <a href="<?php echo $menu['menu-link']['url']; ?>"
                    class="font-medium text-[16px] leading-[24px]  py-1.5">
                     <?php echo $menu['menu-link']['title']; ?>

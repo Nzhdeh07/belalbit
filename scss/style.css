@@ -322,4 +322,39 @@ a:focus {
   max-width: 442px;
 }
 
+button:hover {
+  transform: scale(1.03); /* Увеличивает размер на 20% */
+}
+
+.about-us img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+.search-icon.expanded {
+  width: 100%;
+}
+
+.search-input {
+  display: none;
+  width: 100%;
+}
+
+.search-icon.expanded .search-input {
+  display: block;
+  transition: width 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none; /* Убирает стандартную обводку */
+  box-shadow: none; /* Убирает тень, которая может остаться в некоторых браузерах */
+}
+
 /*# sourceMappingURL=style.css.map */

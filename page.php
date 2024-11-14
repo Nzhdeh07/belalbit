@@ -3,7 +3,7 @@
 
 <div class="grid grid-cols-[317px_1fr] tabletLandscape:grid-cols-1 min-h-full">
     <!-- Сайдбар -->
-    <div class="flex flex-col tabletLandscape:hidden  bg-white py-5 gap-[30px] border border-solid border-sidebarborder">
+    <div class="flex flex-col tabletLandscape:hidden  bg-white py-5 gap-[30px] border border-solid border-sidebarborder   ">
         <?php get_sidebar(); ?>
     </div>
 
@@ -11,11 +11,11 @@
     <div class="flex flex-col">
 
         <!-- Шапка для десктопа -->
-        <div id="header" class="block mobileLandscape:hidden">
+        <div id="header" class="block mobileLandscape:hidden sticky top-8 z-50 border-b border-solid border-transparent transition-all duration-300">
             <?php get_template_part('module/header', null, array()); ?>
         </div>
         <!-- Шапка  для мобильных устройств-->
-        <div id="header-mobile" class="hidden mobileLandscape:flex">
+        <div id="header-mobile" class="hidden mobileLandscape:flex sticky top-0 z-50 border-b border-solid border-transparent transition-all duration-300">
             <?php get_template_part('module/header-mobile', null, array()); ?>
         </div>
 

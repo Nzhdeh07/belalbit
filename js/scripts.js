@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
 document.addEventListener('DOMContentLoaded', function () {
     const catalogButton = document.getElementById('catalog-button');
     const catalogDropdown = document.getElementById('catalog-dropdown');
@@ -88,17 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    const searchIcon = document.querySelector('.search-icon');
-    const searchBox = document.querySelector('.search-box');
-    const logoContainer = document.querySelector('.logo-container');
-
-    searchIcon.addEventListener('click', function () {
-        logoContainer.classList.toggle('hidden');
-        searchBox.classList.toggle('hidden');
-    });
-});
-
 
 // module/catalog Раскрывает категории, если их больше 5
 document.addEventListener('DOMContentLoaded', function () {
@@ -129,9 +117,12 @@ var swiper = new Swiper(".bannerSwiper", {
 
 var swiper = new Swiper("#productSwiper", {
 
-    slidesPerView: 2,
+    slidesPerView: 1.5,
     spaceBetween: 10,
     breakpoints: {
+        767: {
+            slidesPerView: 2,
+        },
         1399: {
             slidesPerView: 3,
         },
@@ -376,8 +367,16 @@ document.querySelectorAll('.buy-button').forEach(button => {
         const form = document.querySelector('#buy form');
 
         // Устанавливаем значения полей в найденной форме
-        form.querySelector('#productId').value = button.dataset.productid;
         form.querySelector('#productPrice').value = button.dataset.price;
+        form.querySelector('#productTitle').value = button.dataset.ptitle;
+        form.querySelector('#productUrl').value = button.dataset.url;
+    });
+});
+
+document.querySelectorAll('.price-button').forEach(button => {
+    button.addEventListener('click', () => {
+        // Найти форму внутри элемента с ID buy
+        const form = document.querySelector('#price form');
         form.querySelector('#productTitle').value = button.dataset.ptitle;
         form.querySelector('#productUrl').value = button.dataset.url;
     });
@@ -385,22 +384,20 @@ document.querySelectorAll('.buy-button').forEach(button => {
 
 
 $(document).ready(function () {
+    console.log("Документ готов");
     $('form:not([action])').on('submit', function (e) {
         e.preventDefault();
+        console.log("Форма отправлена");
         const form = $(this);
 
         const inputError = $(form).find('.error-message').length === 0;
+        console.log("inputError:", inputError);
         if (inputError) {
-            //! Отправка формы
+            console.log("Начало отправки формы");
             sendForm(form);
-
-            if ($(form).hasClass('')) {
-                console.log('Отправка формы');
-            }
         }
     });
 
-    // Отправка формы конец
     function sendForm(form) {
         var arr = form.serializeArray(),
             obj = {};
@@ -408,25 +405,93 @@ $(document).ready(function () {
             obj[el.name] ? obj[el.name].push(el.value) : (obj[el.name] = [el.value]);
         });
 
-        try {
-            $.ajax({
-                type: "POST",
-                url: `${dirURL}/send-order.php`,
-                data: obj
-            }).done(function () {
-
+        console.log("Отправка данных:", obj);
+        $.ajax({
+            type: "POST",
+            url: `${dirURL}/send-order.php`,
+            data: obj
+        }).done(function () {
+            const successMessage = document.querySelector('.successMessage');
+            console.log("Форма успешно отправлена");
+            setTimeout(() => {
+                form.trigger("reset");
+                $('.successMessage').fadeIn();
                 setTimeout(() => {
-                    form.trigger("reset");
-                }, 1000);
-            });
-        } catch (error) {
-            console.log('Произошла ошибка!', 'error');
-        }
+                    $('.successMessage').fadeOut();
+                }, 3000);
+            }, 1000);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("Ошибка отправки:", textStatus, errorThrown);
+        });
     }
 });
 
 
 
 
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const searchIcon = document.querySelector('.search-icon');
+    const logoContainer = document.querySelector('.logo-container');
+    const searchInput = document.querySelector('.search-input');
+    const searchSvg = document.querySelector('.search-svg');
+
+    // Toggle search field visibility and focus on click
+    searchSvg.addEventListener('click', function (event) {
+        logoContainer.classList.toggle('hidden');
+        searchIcon.classList.toggle('expanded');
+        searchInput.classList.toggle('expanded');
+
+        // Show and focus the search input
+        searchInput.classList.remove('hidden');
+        searchInput.focus();
+    });
+
+    // Hide the search input on blur (when it loses focus)
+    searchInput.addEventListener('blur', function () {
+        searchInput.classList.add('hidden');
+        logoContainer.classList.remove('hidden');
+        searchIcon.classList.remove('expanded');
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const header = document.getElementById('header');
+    
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 10) { // Настройте значение на нужную высоту
+            header.classList.add('border-gray-300'); // Добавляем границу
+        } else {
+            header.classList.remove('border-gray-300'); // Убираем границу
+        }
+    });
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const header = document.getElementById('header-mobile');
+    const search = document.getElementById('search');
+    const men = document.getElementById('men');
+    const sl = document.getElementById('sl');
+
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 10) { // Настройте значение на нужную высоту
+            header.classList.add('border-gray-300'); // Добавляем границу
+            search.classList.add('hidden');
+            men.classList.add('hidden');
+            sl.classList.add('hidden');
+        } else {
+            header.classList.remove('border-gray-300'); // Убираем границу
+            search.classList.remove('hidden');
+            men.classList.remove('hidden');
+            sl.classList.remove('hidden');
+        }
+    });
+});
 
 

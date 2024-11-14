@@ -1,22 +1,28 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 header('Content-Type: text/html; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 
 if($_POST){
 // 	print_r($_POST);
 
-    require_once('../phpmailer/PHPMailerAutoload.php');
+    require_once('phpmailer/PHPMailerAutoload.php');
+
     $mail = new PHPMailer;
     $mail->CharSet = 'utf-8';
 
     // print_r($_POST);
     $form_subject = "Форма с сайта";
-    foreach ( $_POST as $key => $value ) {
-
-        if($key === "form_subject"){
-            $form_subject = $value;
+    foreach ($_POST as $key => $value) {
+        if ($key === "form_subject") {
+            // Преобразуем значение в строку, даже если оно передано как массив
+            $form_subject = is_array($value) ? reset($value) : $value;
         }
     }
+
 
 
     $mail->isSMTP();                                      // Set mailer to use SMTP
@@ -30,7 +36,7 @@ if($_POST){
     $mail->Port = 465; // TCP port to connect to / этот порт может отличаться у других провайдеров
 
     // $mail->setFrom('piro.master@bk.ru', $form_subject);
-    $mail->setFrom('take@digitalgoweb.com', $form_subject); // от кого будет уходить письмо?
+    $mail->setFrom('take@digitalgoweb.com'); // от кого будет уходить письмо?
     $mail->addAddress('mut_nyut@mail.ru');     // Кому будет уходить письмо
 // 	$mail->addAddress('kraska.ey@gmail.com');     // Кому будет уходить письмо
     $mail->addReplyTo('mut_nyut@mail.ru', 'Обратная связь');
